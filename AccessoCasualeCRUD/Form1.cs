@@ -32,7 +32,7 @@ namespace AccessoCasualeCRUD
             InitializeComponent();
             //inizializzazioni
             nomefile = "prodotti.txt";
-            lunghezzaRecord = 50;
+            lunghezzaRecord = 54;
             sp = ";";
         }
 
@@ -42,12 +42,18 @@ namespace AccessoCasualeCRUD
         }
 
         //funzioni di servizio
-        public static string Record(prodotto p, string sp)
+        public static string Record(prodotto p, string sp, int lunghezzaRecord)
         {
-
-            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(50) + "##";
+            //stabiliamo una lunghezza fissa per ogni record
+            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(lunghezzaRecord - 4) + "##";
 
         }
 
+        public void AggFile(prodotto p, string sp, int lunghezzaRecord)
+        {
+            byte[] prod = Encoding.ASCII.GetBytes(Record(p, sp, lunghezzaRecord));
+            var file = new FileStream(nomefile, FileMode.Append, FileAccess.Write);
+            file.Write(prod, 0, prod.Length);
+        }
     }
 }
