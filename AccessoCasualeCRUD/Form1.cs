@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -24,7 +25,7 @@ namespace AccessoCasualeCRUD
         prodotto p;
         string nomefile;
         int lunghezzaRecord;
-        char sp;
+        string sp;
 
         public Form1()
         {
@@ -32,12 +33,21 @@ namespace AccessoCasualeCRUD
             //inizializzazioni
             nomefile = "prodotti.txt";
             lunghezzaRecord = 50;
-            sp = ';';
+            sp = ";";
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
+
+        //funzioni di servizio
+        public static string Record(prodotto p, string sp)
+        {
+
+            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(50) + "##";
+
+        }
+
     }
 }
