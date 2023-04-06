@@ -35,17 +35,17 @@
             this.ricomp = new System.Windows.Forms.Button();
             this.leggi = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.nome = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.prezzo = new System.Windows.Forms.TextBox();
+            this.quantita = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.quantitamod = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
-            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.prezzomod = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.nomemod = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
@@ -58,6 +58,7 @@
             this.aggiungi.TabIndex = 0;
             this.aggiungi.Text = "Aggiungi";
             this.aggiungi.UseVisualStyleBackColor = true;
+            this.aggiungi.Click += new System.EventHandler(this.aggiungi_Click);
             // 
             // cancella
             // 
@@ -114,12 +115,12 @@
             this.label1.TabIndex = 6;
             this.label1.Text = "Gestione File Accesso Casuale";
             // 
-            // textBox1
+            // nome
             // 
-            this.textBox1.Location = new System.Drawing.Point(47, 88);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
-            this.textBox1.TabIndex = 7;
+            this.nome.Location = new System.Drawing.Point(47, 88);
+            this.nome.Name = "nome";
+            this.nome.Size = new System.Drawing.Size(100, 20);
+            this.nome.TabIndex = 7;
             // 
             // label2
             // 
@@ -139,19 +140,19 @@
             this.label3.TabIndex = 10;
             this.label3.Text = "Prezzo";
             // 
-            // textBox2
+            // prezzo
             // 
-            this.textBox2.Location = new System.Drawing.Point(47, 132);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 9;
+            this.prezzo.Location = new System.Drawing.Point(47, 132);
+            this.prezzo.Name = "prezzo";
+            this.prezzo.Size = new System.Drawing.Size(100, 20);
+            this.prezzo.TabIndex = 9;
             // 
-            // textBox3
+            // quantita
             // 
-            this.textBox3.Location = new System.Drawing.Point(47, 177);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 11;
+            this.quantita.Location = new System.Drawing.Point(47, 177);
+            this.quantita.Name = "quantita";
+            this.quantita.Size = new System.Drawing.Size(100, 20);
+            this.quantita.TabIndex = 11;
             // 
             // label5
             // 
@@ -162,28 +163,28 @@
             this.label5.TabIndex = 18;
             this.label5.Text = "Quantità";
             // 
-            // textBox4
+            // quantitamod
             // 
-            this.textBox4.Location = new System.Drawing.Point(208, 177);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(100, 20);
-            this.textBox4.TabIndex = 17;
+            this.quantitamod.Location = new System.Drawing.Point(208, 177);
+            this.quantitamod.Name = "quantitamod";
+            this.quantitamod.Size = new System.Drawing.Size(100, 20);
+            this.quantitamod.TabIndex = 17;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(208, 113);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.Size = new System.Drawing.Size(39, 13);
             this.label6.TabIndex = 16;
-            this.label6.Text = "Nome";
+            this.label6.Text = "Prezzo";
             // 
-            // textBox5
+            // prezzomod
             // 
-            this.textBox5.Location = new System.Drawing.Point(208, 132);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(100, 20);
-            this.textBox5.TabIndex = 15;
+            this.prezzomod.Location = new System.Drawing.Point(208, 132);
+            this.prezzomod.Name = "prezzomod";
+            this.prezzomod.Size = new System.Drawing.Size(100, 20);
+            this.prezzomod.TabIndex = 15;
             // 
             // label7
             // 
@@ -194,12 +195,12 @@
             this.label7.TabIndex = 14;
             this.label7.Text = "Nome";
             // 
-            // textBox6
+            // nomemod
             // 
-            this.textBox6.Location = new System.Drawing.Point(208, 88);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(100, 20);
-            this.textBox6.TabIndex = 13;
+            this.nomemod.Location = new System.Drawing.Point(208, 88);
+            this.nomemod.Name = "nomemod";
+            this.nomemod.Size = new System.Drawing.Size(100, 20);
+            this.nomemod.TabIndex = 13;
             // 
             // label4
             // 
@@ -227,16 +228,16 @@
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textBox4);
+            this.Controls.Add(this.quantitamod);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.textBox5);
+            this.Controls.Add(this.prezzomod);
             this.Controls.Add(this.label7);
-            this.Controls.Add(this.textBox6);
-            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.nomemod);
+            this.Controls.Add(this.quantita);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.prezzo);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.nome);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.leggi);
             this.Controls.Add(this.ricomp);
@@ -261,17 +262,17 @@
         private System.Windows.Forms.Button ricomp;
         private System.Windows.Forms.Button leggi;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox nome;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox prezzo;
+        private System.Windows.Forms.TextBox quantita;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox quantitamod;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox prezzomod;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.TextBox nomemod;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView listView1;
     }

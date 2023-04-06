@@ -17,7 +17,7 @@ namespace AccessoCasualeCRUD
         public struct prodotto
         {
             public string nome;
-            public int prezzo;
+            public float prezzo;
             public int quantita;
             public int c;
         }
@@ -41,19 +41,33 @@ namespace AccessoCasualeCRUD
 
         }
 
+        private void aggiungi_Click(object sender, EventArgs e)
+        {
+            p.nome = nome.Text;
+            p.prezzo = float.Parse(prezzo.Text);
+            p.quantita = int.Parse(quantita.Text);
+            AggFile(p, sp, lunghezzaRecord);
+        }
+
         //funzioni di servizio
-        public static string Record(prodotto p, string sp, int lunghezzaRecord)
+        public static string Record(prodotto p, string sp, int l)
         {
             //stabiliamo una lunghezza fissa per ogni record
-            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(lunghezzaRecord - 4) + "##";
+            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(l - 4) + "##";
 
         }
 
-        public void AggFile(prodotto p, string sp, int lunghezzaRecord)
+        public void AggFile(prodotto p, string sp, int l)
         {
-            byte[] prod = Encoding.ASCII.GetBytes(Record(p, sp, lunghezzaRecord));
-            var file = new FileStream(nomefile, FileMode.Append, FileAccess.Write);
-            file.Write(prod, 0, prod.Length);
+            AggProd(Record(p, sp, l), nomefile);
+        }
+
+        public static void AggProd(string riga, string nomefile)
+        {
+            var oStream = new FileStream(nomefile, FileMode.Append, FileAccess.Write, FileShare.Read);
+            StreamWriter sw = new StreamWriter(oStream);
+            sw.WriteLine(riga);
+            sw.Close();
         }
     }
 }

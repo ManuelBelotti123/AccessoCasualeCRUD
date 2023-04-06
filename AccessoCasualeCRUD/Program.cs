@@ -16,7 +16,7 @@ namespace AccessoCasualeCRUD
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new form1());
+            Application.Run(new Form1());
         }
     }
 }
