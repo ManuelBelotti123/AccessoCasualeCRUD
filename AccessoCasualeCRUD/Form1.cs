@@ -47,7 +47,7 @@ namespace AccessoCasualeCRUD
             p.prezzo = float.Parse(prezzo.Text);
             p.quantita = int.Parse(quantita.Text);
             p.c = 1;
-            AggFile(p, sp, lunghezzaRecord);
+            AggProd(Record(p, sp, lunghezzaRecord), nomefile);
         }
 
         private void cancella_Click(object sender, EventArgs e)
@@ -64,11 +64,6 @@ namespace AccessoCasualeCRUD
 
         }
 
-        public void AggFile(prodotto p, string sp, int l)
-        {
-            AggProd(Record(p, sp, l), nomefile);
-        }
-
         public void AggProd(string riga, string nomefile)
         {
             var oStream = new FileStream(nomefile, FileMode.Append, FileAccess.Write, FileShare.Read);
@@ -80,18 +75,18 @@ namespace AccessoCasualeCRUD
         public prodotto LineProd(string prodottostringa, string sp)
         {
             prodotto p;
-            String[] div = prodottostringa.Split(sp[0]);
+            string[] div = prodottostringa.Split(sp[0]);
             p.nome = div[0];
-            p.prezzo = float.Parse(div[1]);
+            p.prezzo = (float)Convert.ToDecimal(div[1]);
             p.quantita = int.Parse(div[2]);
-            p.c = int.Parse(div[3]);
+            p.c = 0;
             return p;
         }
 
         public void Cancella(string ricerca, string nomefile, string sp, int l)
         {
             prodotto p;
-            String line;
+            string line;
             byte[] br;
             var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
             BinaryReader reader = new BinaryReader(file);
@@ -104,8 +99,11 @@ namespace AccessoCasualeCRUD
                 p = LineProd(line, sp);
                 if (p.nome == ricerca)
                 {
-                    p.c = 0;
-                    Record(p, sp, l);
+                    line = Record(p, sp, l);
+                    if (SeekOrigin.Current == 0)
+                    {
+                        file.Seek(l, SeekOrigin.Current);
+                    }
                     file.Seek(-l, SeekOrigin.Current);
                     writer.Write(line);
                 }
