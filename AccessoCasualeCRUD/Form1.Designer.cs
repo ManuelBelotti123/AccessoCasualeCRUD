@@ -98,6 +98,7 @@
             this.ricomp.TabIndex = 4;
             this.ricomp.Text = "Ricompatta";
             this.ricomp.UseVisualStyleBackColor = true;
+            this.ricomp.Click += new System.EventHandler(this.ricomp_Click);
             // 
             // leggi
             // 

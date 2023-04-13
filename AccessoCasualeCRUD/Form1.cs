@@ -65,6 +65,11 @@ namespace AccessoCasualeCRUD
             RecuperaDato(nome.Text, nomefile, sp, lunghezzaRecord);
         }
 
+        private void ricomp_Click(object sender, EventArgs e)
+        {
+            Ricompatta(nomefile, sp, lunghezzaRecord);
+        }
+
         //funzioni di servizio
         public string Record(prodotto p, string sp, int l)
         {
@@ -81,7 +86,7 @@ namespace AccessoCasualeCRUD
             sw.Close();
         }
 
-        public prodotto CancorRecLog(string prodottostringa, string sp, int c)
+        public prodotto RecOrCancLog(string prodottostringa, string sp, int c)
         {
             prodotto p;
             string[] div = prodottostringa.Split(sp[0]);
@@ -119,7 +124,7 @@ namespace AccessoCasualeCRUD
                 string[] div = line.Split(sp[0]);
                 if (div[0] == ricerca)
                 {
-                    p = CancorRecLog(line, sp, 0);
+                    p = RecOrCancLog(line, sp, 0);
                     line = Record(p, sp, l);
                     file.Seek(-l, SeekOrigin.Current);
                     char[] linea = line.ToCharArray();
@@ -175,12 +180,31 @@ namespace AccessoCasualeCRUD
                 string[] div = line.Split(sp[0]);
                 if (div[0] == ricerca)
                 {
-                    p = CancorRecLog(line, sp, 1);
+                    p = RecOrCancLog(line, sp, 1);
                     line = Record(p, sp, l);
                     file.Seek(-l, SeekOrigin.Current);
                     char[] linea = line.ToCharArray();
                     writer.Write(linea);
                 }
+            }
+            reader.Close();
+            writer.Close();
+            file.Close();
+        }
+
+        public void Ricompatta(string nomefile, string sp, int l)
+        {
+            byte[] br;
+            var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(file);
+            BinaryWriter writer = new BinaryWriter(file);
+            file.Seek(l, SeekOrigin.Begin);
+            while (file.Position < file.Length - l)
+            {
+                br = reader.ReadBytes(l);
+                file.Seek(-l*2, SeekOrigin.Current);
+                writer.Write(br);
+                file.Seek(l, SeekOrigin.Current);
             }
             reader.Close();
             writer.Close();
