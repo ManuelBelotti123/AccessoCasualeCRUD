@@ -108,6 +108,7 @@
             this.leggi.TabIndex = 5;
             this.leggi.Text = "Visualizza";
             this.leggi.UseVisualStyleBackColor = true;
+            this.leggi.Click += new System.EventHandler(this.leggi_Click);
             // 
             // label1
             // 
@@ -217,12 +218,14 @@
             // 
             // listView1
             // 
+            this.listView1.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(367, 88);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(389, 317);
             this.listView1.TabIndex = 20;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
             // 
             // Form1
             // 

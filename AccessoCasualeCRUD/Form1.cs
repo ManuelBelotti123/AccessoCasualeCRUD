@@ -70,6 +70,11 @@ namespace AccessoCasualeCRUD
             Ricompatta(nomefile, sp, lunghezzaRecord);
         }
 
+        private void leggi_Click(object sender, EventArgs e)
+        {
+            Visualizza(nomefile, sp, lunghezzaRecord);
+        }
+
         //funzioni di servizio
         public string Record(prodotto p, string sp, int l)
         {
@@ -208,6 +213,29 @@ namespace AccessoCasualeCRUD
             }
             reader.Close();
             writer.Close();
+            file.Close();
+        }
+
+        public void Visualizza(string nomefile, string sp, int l)
+        {
+            listView1.Items.Clear();
+            prodotto p;
+            string line;
+            byte[] br;
+            var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(file);
+            file.Seek(l, SeekOrigin.Begin);
+            while (file.Position < file.Length)
+            {
+                br = reader.ReadBytes(l);
+                line = Encoding.ASCII.GetString(br, 0, br.Length);
+                string[] div = line.Split(sp[0]);
+                if (true)
+                {
+                    listView1.Items.Add(line);
+                }
+            }
+            reader.Close();
             file.Close();
         }
     }
