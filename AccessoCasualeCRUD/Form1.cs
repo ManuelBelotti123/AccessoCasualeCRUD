@@ -60,6 +60,11 @@ namespace AccessoCasualeCRUD
             Modifica(nome.Text, nomemod.Text, float.Parse(prezzomod.Text), int.Parse(quantitamod.Text), nomefile, sp, lunghezzaRecord);
         }
 
+        private void recdato_Click(object sender, EventArgs e)
+        {
+            RecuperaDato(nome.Text, nomefile, sp, lunghezzaRecord);
+        }
+
         //funzioni di servizio
         public string Record(prodotto p, string sp, int l)
         {
@@ -76,14 +81,14 @@ namespace AccessoCasualeCRUD
             sw.Close();
         }
 
-        public prodotto CancLog(string prodottostringa, string sp)
+        public prodotto CancorRecLog(string prodottostringa, string sp, int c)
         {
             prodotto p;
             string[] div = prodottostringa.Split(sp[0]);
             p.nome = div[0];
             p.prezzo = float.Parse(div[1]);
             p.quantita = int.Parse(div[2]);
-            p.c = 0;
+            p.c = c;
             return p;
         }
 
@@ -114,7 +119,7 @@ namespace AccessoCasualeCRUD
                 string[] div = line.Split(sp[0]);
                 if (div[0] == ricerca)
                 {
-                    p = CancLog(line, sp);
+                    p = CancorRecLog(line, sp, 0);
                     line = Record(p, sp, l);
                     file.Seek(-l, SeekOrigin.Current);
                     char[] linea = line.ToCharArray();
@@ -143,6 +148,34 @@ namespace AccessoCasualeCRUD
                 if (div[0] == ricerca)
                 {
                     p = ModProd(line, nome, prezzo, quantita, sp);
+                    line = Record(p, sp, l);
+                    file.Seek(-l, SeekOrigin.Current);
+                    char[] linea = line.ToCharArray();
+                    writer.Write(linea);
+                }
+            }
+            reader.Close();
+            writer.Close();
+            file.Close();
+        }
+
+        public void RecuperaDato(string ricerca, string nomefile, string sp, int l)
+        {
+            prodotto p;
+            string line;
+            byte[] br;
+            var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(file);
+            BinaryWriter writer = new BinaryWriter(file);
+            file.Seek(0, SeekOrigin.Begin);
+            while (file.Position < file.Length)
+            {
+                br = reader.ReadBytes(l);
+                line = Encoding.ASCII.GetString(br, 0, br.Length);
+                string[] div = line.Split(sp[0]);
+                if (div[0] == ricerca)
+                {
+                    p = CancorRecLog(line, sp, 1);
                     line = Record(p, sp, l);
                     file.Seek(-l, SeekOrigin.Current);
                     char[] linea = line.ToCharArray();

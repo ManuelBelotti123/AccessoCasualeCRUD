@@ -88,6 +88,7 @@
             this.recdato.TabIndex = 3;
             this.recdato.Text = "Recupera";
             this.recdato.UseVisualStyleBackColor = true;
+            this.recdato.Click += new System.EventHandler(this.recdato_Click);
             // 
             // ricomp
             // 
