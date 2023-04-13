@@ -60,7 +60,7 @@ namespace AccessoCasualeCRUD
         public string Record(prodotto p, string sp, int l)
         {
             //stabiliamo una lunghezza fissa per ogni record
-            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(l - 4) + "##";
+            return (p.nome + sp + p.prezzo + sp + p.quantita + sp + p.c).PadRight(l - 4) + "##\r\n";
 
         }
 
@@ -72,12 +72,12 @@ namespace AccessoCasualeCRUD
             sw.Close();
         }
 
-        public prodotto LineProd(string prodottostringa, string sp)
+        public prodotto ModCancLog(string prodottostringa, string sp)
         {
             prodotto p;
             string[] div = prodottostringa.Split(sp[0]);
             p.nome = div[0];
-            p.prezzo = (float)Convert.ToDecimal(div[1]);
+            p.prezzo = float.Parse(div[1]);
             p.quantita = int.Parse(div[2]);
             p.c = 0;
             return p;
@@ -95,19 +95,19 @@ namespace AccessoCasualeCRUD
             while (file.Position < file.Length)
             {
                 br = reader.ReadBytes(l);
+                listView1.Items.Add("ciao");
                 line = Encoding.ASCII.GetString(br, 0, br.Length);
-                p = LineProd(line, sp);
+                p = ModCancLog(line, sp);
                 if (p.nome == ricerca)
                 {
                     line = Record(p, sp, l);
-                    if (SeekOrigin.Current == 0)
-                    {
-                        file.Seek(l, SeekOrigin.Current);
-                    }
                     file.Seek(-l, SeekOrigin.Current);
-                    writer.Write(line);
+                    char[] linea = line.ToCharArray();
+                    writer.Write(linea);
                 }
             }
+            reader.Close();
+            writer.Close();
             file.Close();
         }
     }
