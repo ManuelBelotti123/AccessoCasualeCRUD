@@ -52,8 +52,12 @@ namespace AccessoCasualeCRUD
 
         private void cancella_Click(object sender, EventArgs e)
         {
-            string ricerca = nome.Text;
-            Cancella(ricerca, nomefile, sp, lunghezzaRecord);
+            Cancella(nome.Text, nomefile, sp, lunghezzaRecord);
+        }
+
+        private void modifica_Click(object sender, EventArgs e)
+        {
+            Modifica(nome.Text, nomemod.Text, float.Parse(prezzomod.Text), int.Parse(quantitamod.Text), nomefile, sp, lunghezzaRecord);
         }
 
         //funzioni di servizio
@@ -72,7 +76,7 @@ namespace AccessoCasualeCRUD
             sw.Close();
         }
 
-        public prodotto ModCancLog(string prodottostringa, string sp)
+        public prodotto CancLog(string prodottostringa, string sp)
         {
             prodotto p;
             string[] div = prodottostringa.Split(sp[0]);
@@ -80,6 +84,17 @@ namespace AccessoCasualeCRUD
             p.prezzo = float.Parse(div[1]);
             p.quantita = int.Parse(div[2]);
             p.c = 0;
+            return p;
+        }
+
+        public prodotto ModProd(string prodottostringa, string nome, float prezzo, int quantita, string sp)
+        {
+            prodotto p;
+            string[] div = prodottostringa.Split(sp[0]);
+            p.nome = nome;
+            p.prezzo = prezzo;
+            p.quantita = quantita;
+            p.c = 1;
             return p;
         }
 
@@ -95,11 +110,39 @@ namespace AccessoCasualeCRUD
             while (file.Position < file.Length)
             {
                 br = reader.ReadBytes(l);
-                listView1.Items.Add("ciao");
                 line = Encoding.ASCII.GetString(br, 0, br.Length);
-                p = ModCancLog(line, sp);
-                if (p.nome == ricerca)
+                string[] div = line.Split(sp[0]);
+                if (div[0] == ricerca)
                 {
+                    p = CancLog(line, sp);
+                    line = Record(p, sp, l);
+                    file.Seek(-l, SeekOrigin.Current);
+                    char[] linea = line.ToCharArray();
+                    writer.Write(linea);
+                }
+            }
+            reader.Close();
+            writer.Close();
+            file.Close();
+        }
+
+        public void Modifica(string ricerca, string nome, float prezzo, int quantita, string nomefile, string sp, int l)
+        {
+            prodotto p;
+            string line;
+            byte[] br;
+            var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(file);
+            BinaryWriter writer = new BinaryWriter(file);
+            file.Seek(0, SeekOrigin.Begin);
+            while (file.Position < file.Length)
+            {
+                br = reader.ReadBytes(l);
+                line = Encoding.ASCII.GetString(br, 0, br.Length);
+                string[] div = line.Split(sp[0]);
+                if (div[0] == ricerca)
+                {
+                    p = ModProd(line, nome, prezzo, quantita, sp);
                     line = Record(p, sp, l);
                     file.Seek(-l, SeekOrigin.Current);
                     char[] linea = line.ToCharArray();

@@ -78,6 +78,7 @@
             this.modifica.TabIndex = 2;
             this.modifica.Text = "Modifica";
             this.modifica.UseVisualStyleBackColor = true;
+            this.modifica.Click += new System.EventHandler(this.modifica_Click);
             // 
             // recdato
             // 
