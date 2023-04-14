@@ -73,6 +73,24 @@ namespace AccessoCasualeCRUD
         private void leggi_Click(object sender, EventArgs e)
         {
             Visualizza(nomefile, sp, lunghezzaRecord);
+            listView1.Items.Clear();
+            string line;
+            byte[] br;
+            var appoggio = new FileStream("appoggio.txt", FileMode.Open, FileAccess.ReadWrite);
+            BinaryReader reader = new BinaryReader(appoggio);
+            while (appoggio.Position < appoggio.Length)
+            {
+                br = reader.ReadBytes(lunghezzaRecord);
+                line = Encoding.ASCII.GetString(br, 0, br.Length);
+                string[] div = line.Split(sp[0]);
+                string c = div[3];
+                if (c[0] != '0')
+                {
+                    listView1.Items.Add(line);
+                }
+            }
+            reader.Close();
+            appoggio.Close();
         }
 
         //funzioni di servizio
@@ -201,7 +219,6 @@ namespace AccessoCasualeCRUD
 
         public void Ricompatta(string nomefile, string sp, int l)
         {
-            prodotto p;
             string line;
             byte[] br;
             var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
@@ -232,25 +249,29 @@ namespace AccessoCasualeCRUD
 
         public void Visualizza(string nomefile, string sp, int l)
         {
-            listView1.Items.Clear();
-            prodotto p;
             string line;
             byte[] br;
             var file = new FileStream(nomefile, FileMode.Open, FileAccess.ReadWrite);
+            var appoggio = new FileStream("appoggio.txt", FileMode.Open, FileAccess.ReadWrite);
             BinaryReader reader = new BinaryReader(file);
-            file.Seek(l, SeekOrigin.Begin);
+            BinaryWriter writer = new BinaryWriter(appoggio);
+            file.Seek(0, SeekOrigin.Begin);
+            appoggio.SetLength(0);
             while (file.Position < file.Length)
             {
                 br = reader.ReadBytes(l);
                 line = Encoding.ASCII.GetString(br, 0, br.Length);
                 string[] div = line.Split(sp[0]);
-                if (true)
+                string c = div[3];
+                if (c[0] != '0')
                 {
-                    listView1.Items.Add(line);
+                    writer.Write(br);
                 }
             }
             reader.Close();
+            writer.Close();
             file.Close();
+            appoggio.Close();
         }
     }
 }
