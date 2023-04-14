@@ -48,6 +48,9 @@
             this.nomemod = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.quantita1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.prezzo1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.nome1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.SuspendLayout();
             // 
             // aggiungi
@@ -218,6 +221,10 @@
             // 
             // listView1
             // 
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.nome1,
+            this.prezzo1,
+            this.quantita1});
             this.listView1.Cursor = System.Windows.Forms.Cursors.SizeNWSE;
             this.listView1.HideSelection = false;
             this.listView1.Location = new System.Drawing.Point(367, 88);
@@ -225,7 +232,19 @@
             this.listView1.Size = new System.Drawing.Size(389, 317);
             this.listView1.TabIndex = 20;
             this.listView1.UseCompatibleStateImageBehavior = false;
-            this.listView1.View = System.Windows.Forms.View.List;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // quantita1
+            // 
+            this.quantita1.Text = "Quantità";
+            // 
+            // prezzo1
+            // 
+            this.prezzo1.Text = "Prezzo";
+            // 
+            // nome1
+            // 
+            this.nome1.Text = "Nome";
             // 
             // Form1
             // 
@@ -282,6 +301,9 @@
         private System.Windows.Forms.TextBox nomemod;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader nome1;
+        private System.Windows.Forms.ColumnHeader prezzo1;
+        private System.Windows.Forms.ColumnHeader quantita1;
     }
 }
 

@@ -86,7 +86,11 @@ namespace AccessoCasualeCRUD
                 string c = div[3];
                 if (c[0] != '0')
                 {
-                    listView1.Items.Add(line);
+                    ListViewItem Item = new ListViewItem();
+                    Item.Text = div[0];
+                    Item.SubItems.Add(div[1]);
+                    Item.SubItems.Add(div[2]);
+                    listView1.Items.Add(Item);
                 }
             }
             reader.Close();
